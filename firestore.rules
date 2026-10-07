@@ -1,0 +1,116 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global helper functions
+    function isSignedIn() {
+      return true;
+    }
+
+    function isOwner(userId) {
+      return true;
+    }
+
+    function isSuperAdmin() {
+      return true;
+    }
+
+    function isAdmin() {
+      return true;
+    }
+
+    function isFacultyOrAdmin() {
+      return true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // Default connection test
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    // Official College Registry (Roster verification)
+    match /collegeRegistry/{registryId} {
+      allow read, write: if true;
+    }
+
+    // Courses collection
+    match /courses/{courseId} {
+      allow read, write: if true;
+    }
+
+    // Lectures collection
+    match /lectures/{lectureId} {
+      allow read, write: if true;
+    }
+
+    // Timetable Schedules
+    match /schedules/{scheduleId} {
+      allow read, write: if true;
+    }
+
+    // Exams
+    match /exams/{examId} {
+      allow read, write: if true;
+    }
+
+    // Library Files & Media
+    match /libraryFiles/{fileId} {
+      allow read, write: if true;
+    }
+
+    // Announcements
+    match /announcements/{announcementId} {
+      allow read, write: if true;
+    }
+
+    // Notifications
+    match /notifications/{notificationId} {
+      allow read, write: if true;
+    }
+
+    // Community Posts & Comments
+    match /communityPosts/{postId} {
+      allow read, write: if true;
+    }
+
+    // Student Tickets & Complaints
+    match /studentTickets/{ticketId} {
+      allow read, write: if true;
+    }
+
+    // Personal Student Tasks
+    match /tasks/{taskId} {
+      allow read, write: if true;
+    }
+
+    // Personal Student Notes
+    match /notes/{noteId} {
+      allow read, write: if true;
+    }
+
+    // System Activity Logs
+    match /activityLogs/{logId} {
+      allow read, write: if true;
+    }
+
+    // System Platform Configuration
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
+
+    // Catch-all
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

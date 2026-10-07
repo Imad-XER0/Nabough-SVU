@@ -1,0 +1,6 @@
+{
+  "name": "Nabough - كلية التربية في مكان واحد",
+  "description": "نَبُوغ — المنصة الرقمية الشاملة لطلاب وأعضاء هيئة تدريس وإدارة كلية التربية: محاضرات، جدول دراسي، مكتبة، تربية عملية، بنك أسئلة، ومساعد ذكاء اصطناعي نبوغ AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
