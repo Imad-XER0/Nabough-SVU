@@ -1,0 +1,401 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with role, position, and permissions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "nationalId": { "type": "string" },
+        "role": { "type": "string", "enum": ["super_admin", "admin", "doctor", "coordinator", "student"] },
+        "studentPosition": { "type": "string", "enum": ["normal", "student_coordinator", "leader", "assistant"] },
+        "studentPositions": { "type": "array" },
+        "permissions": { "type": "array" },
+        "permissionScopes": { "type": "array" },
+        "faculty": { "type": "string" },
+        "department": { "type": "string" },
+        "specialization": { "type": "string" },
+        "level": { "type": "string" },
+        "academicYear": { "type": "string" },
+        "section": { "type": "string" },
+        "studentId": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "suspended"] },
+        "avatar": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "role"]
+    },
+    "CollegeStudent": {
+      "title": "CollegeStudent",
+      "description": "Official college registry record for Egyptian National ID verification",
+      "type": "object",
+      "properties": {
+        "nationalId": { "type": "string", "maxLength": 14, "minLength": 14 },
+        "phone": { "type": "string", "maxLength": 11, "minLength": 11 },
+        "fullName": { "type": "string" },
+        "faculty": { "type": "string" },
+        "department": { "type": "string" },
+        "specialization": { "type": "string" },
+        "level": { "type": "string" },
+        "section": { "type": "string" },
+        "studentId": { "type": "string" },
+        "academicYear": { "type": "string" },
+        "isRegisteredAccount": { "type": "boolean" }
+      },
+      "required": ["nationalId", "phone", "fullName", "studentId"]
+    },
+    "Course": {
+      "title": "Course",
+      "description": "Academic course in the faculty",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "instructor": { "type": "string" },
+        "instructorId": { "type": "string" },
+        "department": { "type": "string" },
+        "creditHours": { "type": "number" },
+        "room": { "type": "string" },
+        "scheduleTime": { "type": "string" },
+        "color": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["id", "name", "code", "department"]
+    },
+    "Lecture": {
+      "title": "Lecture",
+      "description": "Lecture content, recordings, and files",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "subjectName": { "type": "string" },
+        "title": { "type": "string" },
+        "number": { "type": "number" },
+        "instructor": { "type": "string" },
+        "date": { "type": "string" },
+        "room": { "type": "string" },
+        "duration": { "type": "string" },
+        "videoUrl": { "type": "string" },
+        "audioUrl": { "type": "string" },
+        "pdfUrl": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["id", "subjectId", "title"]
+    },
+    "Schedule": {
+      "title": "Schedule",
+      "description": "Lecture and section timetable schedule",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "subject": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "instructor": { "type": "string" },
+        "room": { "type": "string" },
+        "day": { "type": "string" },
+        "dayArabic": { "type": "string" },
+        "startTime": { "type": "string" },
+        "endTime": { "type": "string" },
+        "duration": { "type": "string" },
+        "type": { "type": "string" },
+        "level": { "type": "string" },
+        "section": { "type": "string" }
+      },
+      "required": ["id", "subject", "day", "startTime", "endTime"]
+    },
+    "Exam": {
+      "title": "Exam",
+      "description": "Exam schedule and details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "subjectName": { "type": "string" },
+        "date": { "type": "string" },
+        "dayArabic": { "type": "string" },
+        "time": { "type": "string" },
+        "room": { "type": "string" },
+        "type": { "type": "string" },
+        "maxScore": { "type": "number" }
+      },
+      "required": ["id", "subjectName", "date", "time"]
+    },
+    "LibraryFile": {
+      "title": "LibraryFile",
+      "description": "Educational document or media file metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "subjectName": { "type": "string" },
+        "teacher": { "type": "string" },
+        "type": { "type": "string" },
+        "size": { "type": "string" },
+        "url": { "type": "string" },
+        "uploadDate": { "type": "string" },
+        "downloadsCount": { "type": "number" },
+        "description": { "type": "string" },
+        "uploadedBy": { "type": "string" }
+      },
+      "required": ["id", "title", "subjectName", "type"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "College and group announcements",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorRole": { "type": "string" },
+        "authorPosition": { "type": "string" },
+        "scope": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "isUrgent": { "type": "boolean" },
+        "likesCount": { "type": "number" }
+      },
+      "required": ["id", "title", "content", "authorName"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User notification",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "category": { "type": "string" },
+        "read": { "type": "boolean" }
+      },
+      "required": ["id", "title", "message"]
+    },
+    "CommunityPost": {
+      "title": "CommunityPost",
+      "description": "Community discussion post",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorRole": { "type": "string" },
+        "authorAvatar": { "type": "string" },
+        "authorDepartment": { "type": "string" },
+        "content": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "groupName": { "type": "string" },
+        "likes": { "type": "number" },
+        "likedBy": { "type": "array" },
+        "commentsCount": { "type": "number" },
+        "isOfficial": { "type": "boolean" }
+      },
+      "required": ["id", "authorName", "content"]
+    },
+    "CommunityComment": {
+      "title": "CommunityComment",
+      "description": "Comment on community post",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "postId": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorAvatar": { "type": "string" },
+        "authorRole": { "type": "string" },
+        "content": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "postId", "authorName", "content"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "Student academic or study task",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "subjectName": { "type": "string" },
+        "deadline": { "type": "string" },
+        "priority": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "userId", "title"]
+    },
+    "Note": {
+      "title": "Note",
+      "description": "Student personal study note",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "subjectName": { "type": "string" },
+        "tags": { "type": "array" },
+        "pinned": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "content"]
+    },
+    "Question": {
+      "title": "Question",
+      "description": "Question bank item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "subjectName": { "type": "string" },
+        "question": { "type": "string" },
+        "type": { "type": "string" },
+        "options": { "type": "array" },
+        "correctAnswerIndex": { "type": "number" },
+        "explanation": { "type": "string" }
+      },
+      "required": ["id", "question", "subjectName"]
+    },
+    "PracticalTraining": {
+      "title": "PracticalTraining",
+      "description": "Practical education and school training module",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "schoolName": { "type": "string" },
+        "schoolType": { "type": "string" },
+        "supervisorName": { "type": "string" },
+        "mentorTeacher": { "type": "string" },
+        "gradeLevel": { "type": "string" },
+        "totalHoursRequired": { "type": "number" },
+        "completedHours": { "type": "number" },
+        "attendanceRate": { "type": "number" },
+        "lessonPlans": { "type": "array" },
+        "supervisorVisits": { "type": "array" }
+      },
+      "required": ["id", "schoolName"]
+    },
+    "ActivityLog": {
+      "title": "ActivityLog",
+      "description": "System and administrative activity audit log",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "actorUserId": { "type": "string" },
+        "actorName": { "type": "string" },
+        "actorRole": { "type": "string" },
+        "action": { "type": "string" },
+        "entityType": { "type": "string" },
+        "entityId": { "type": "string" },
+        "entityName": { "type": "string" },
+        "affectedUserId": { "type": "string" },
+        "scope": { "type": "string" },
+        "previousValue": { "type": "string" },
+        "newValue": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "metadata": { "type": "object" }
+      },
+      "required": ["id", "actorName", "actorRole", "action"]
+    },
+    "PlatformSetting": {
+      "title": "PlatformSetting",
+      "description": "Master platform and college configuration",
+      "type": "object",
+      "properties": {
+        "systemName": { "type": "string" },
+        "currentAcademicYear": { "type": "string" },
+        "currentSemester": { "type": "string" },
+        "studentRegistrationOpen": { "type": "boolean" },
+        "allowStudentUploads": { "type": "boolean" },
+        "maintenanceMode": { "type": "boolean" },
+        "allowLeaderAnnouncements": { "type": "boolean" },
+        "defaultDoctorStorageLimitGB": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["systemName"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile records"
+    },
+    "/collegeRegistry/{registryId}": {
+      "schema": { "$ref": "#/entities/CollegeStudent" },
+      "description": "Official college student roster for registration verification"
+    },
+    "/courses/{courseId}": {
+      "schema": { "$ref": "#/entities/Course" },
+      "description": "Courses and curriculum"
+    },
+    "/lectures/{lectureId}": {
+      "schema": { "$ref": "#/entities/Lecture" },
+      "description": "Lectures and course materials"
+    },
+    "/schedules/{scheduleId}": {
+      "schema": { "$ref": "#/entities/Schedule" },
+      "description": "Timetables and schedules"
+    },
+    "/exams/{examId}": {
+      "schema": { "$ref": "#/entities/Exam" },
+      "description": "Exams and evaluations"
+    },
+    "/libraryFiles/{fileId}": {
+      "schema": { "$ref": "#/entities/LibraryFile" },
+      "description": "Educational library files"
+    },
+    "/announcements/{announcementId}": {
+      "schema": { "$ref": "#/entities/Announcement" },
+      "description": "Official announcements"
+    },
+    "/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/Notification" },
+      "description": "User notifications"
+    },
+    "/communityPosts/{postId}": {
+      "schema": { "$ref": "#/entities/CommunityPost" },
+      "description": "Community posts"
+    },
+    "/communityPosts/{postId}/comments/{commentId}": {
+      "schema": { "$ref": "#/entities/CommunityComment" },
+      "description": "Comments on community posts"
+    },
+    "/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/Task" },
+      "description": "User tasks"
+    },
+    "/notes/{noteId}": {
+      "schema": { "$ref": "#/entities/Note" },
+      "description": "User study notes"
+    },
+    "/questions/{questionId}": {
+      "schema": { "$ref": "#/entities/Question" },
+      "description": "Question bank"
+    },
+    "/practicalTraining/{trainingId}": {
+      "schema": { "$ref": "#/entities/PracticalTraining" },
+      "description": "Practical training records"
+    },
+    "/activityLogs/{logId}": {
+      "schema": { "$ref": "#/entities/ActivityLog" },
+      "description": "Audit and administrative activity logs"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/PlatformSetting" },
+      "description": "Platform global settings"
+    }
+  }
+}
